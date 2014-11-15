@@ -1,0 +1,38 @@
+{% set supervisor = salt['grains.filter_by']({
+    'Debian': {
+        'pkg': 'supervisor',
+        'service': 'supervisor',
+        'conf_file': '/etc/supervisor/supervisor.conf',
+    },
+    'RedHat': {
+        'pkg': 'supervisor',
+        'service': 'supervisor',
+        'conf_file': '/etc/supervisor/supervisor.conf',
+    },
+}, grain='os_family', merge=salt['pillar.get']('supervisor:lookup')) %}
+
+
+{% set supervisor_config = salt['pillar.get']('supervisor:config', {
+    'key': 'value',
+}) %}
+{# If Helium gets released then this can be swapped #}
+{# }}, merge=True) %} #}
+
+{# If Lithium gets released then below code can be uncommentted because it is more DRY #}
+{#
+{{ '{%' }} set {{ cookiecutter.formula_name }} = salt['grains.filter_by']({
+    'default': {
+        'pkg': '{{ cookiecutter.formula_name }}',
+        'service': '{{ cookiecutter.formula_name }}',
+        'conf_file': '/etc/{{ cookiecutter.formula_name }}/{{ cookiecutter.formula_name }}.conf',
+        'config': {
+            'key': 'value',
+        },
+    },
+    'Debian': {
+    },
+    'RedHat': {
+    },
+}, grain='os_family', merge=salt['pillar.get']('{{ cookiecutter.formula_name }}:lookup'), base='default') {{ '%}' }}
+#}
+

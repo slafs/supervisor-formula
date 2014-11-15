@@ -1,0 +1,6 @@
+supervisor:
+  lookup:
+    pkg: mysupervisor
+    conf_file: /usr/local/etc/supervisor/supervisor.conf
+  config:
+    key: othervalue
