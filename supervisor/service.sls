@@ -13,6 +13,8 @@ supervisor-start-script-systemd:
       - test -d /usr/lib/systemd/system
     - require_in:
       - service: supervisor-service
+    - require:
+      - pip: supervisor
 
 supervisor-start-script-sysvinit:
   file.managed:
@@ -22,6 +24,8 @@ supervisor-start-script-sysvinit:
       - test -d /etc/init.d
     - require_in:
       - service: supervisor-service
+    - require:
+      - pip: supervisor
 
 supervisor-start-script-upstart:
   file.managed:
@@ -31,6 +35,8 @@ supervisor-start-script-upstart:
       - test -d /etc/init
     - require_in:
       - service: supervisor-service
+    - require:
+      - pip: supervisor
 
 supervisor-service:
   service:

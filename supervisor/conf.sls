@@ -10,6 +10,8 @@ supervisor-dirs:
       - {{ supervisor.rundir }}
       - {{ supervisor.logdir }}
       - {{ supervisor.include_confdir }}
+    - require:
+      - pip: supervisor
 
 supervisor-config:
   file.managed:
