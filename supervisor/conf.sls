@@ -3,6 +3,14 @@
 include:
   - supervisor
 
+supervisor-dirs:
+  file.directory:
+    - names:
+      - {{ supervisor.confdir }}
+      - {{ supervisor.rundir }}
+      - {{ supervisor.logdir }}
+      - {{ supervisor.include_confdir }}
+
 supervisor-config:
   file.managed:
     - name: {{ supervisor.conf_file }}
@@ -13,4 +21,4 @@ supervisor-config:
     - watch_in:
       - service: supervisor
     - require:
-      - pkg: supervisor
+      - file: supervisor-dirs

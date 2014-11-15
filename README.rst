@@ -19,9 +19,14 @@ Available states
 ``supervisor``
 --------------
 
-TODO - add description of this state
+installs a supervisor package via pip
 
 ``supervisor.conf``
 -------------------
 
-TODO - add description of this state
+ensures all the necessary directories are present and generates a main config file
+
+``supervisor.service``
+----------------------
+
+ensures that all scripts are available also runs and enables the service

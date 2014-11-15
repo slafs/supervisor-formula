@@ -2,21 +2,49 @@
     'Debian': {
         'pkg': 'supervisor',
         'service': 'supervisor',
-        'conf_file': '/etc/supervisor/supervisor.conf',
+        'conf_file': '/etc/supervisord.conf',
+        'confdir': '/etc',
+        'logdir': '/var/log/supervisor',
+        'rundir': '/var/run',
+        'include_confdir': '/etc/supervisord.d',
     },
     'RedHat': {
         'pkg': 'supervisor',
         'service': 'supervisor',
-        'conf_file': '/etc/supervisor/supervisor.conf',
+        'conf_file': '/etc/supervisord.conf',
+        'confdir': '/etc',
+        'logdir': '/var/log/supervisor',
+        'rundir': '/var/run',
+        'include_confdir': '/etc/supervisord.d',
     },
 }, grain='os_family', merge=salt['pillar.get']('supervisor:lookup')) %}
 
 
 {% set supervisor_config = salt['pillar.get']('supervisor:config', {
-    'key': 'value',
-}) %}
-{# If Helium gets released then this can be swapped #}
-{# }}, merge=True) %} #}
+    'unix_http_server': {
+        'file': '/var/run/supervisor.sock',
+    },
+    'supervisord': {
+        'childlogdir': '/var/log/supervisor',
+        'logfile': '/var/log/supervisor/supervisord.log',
+        'pidfile': '/var/run/supervisord.pid',
+        'logfile_maxbytes': '50MB',
+        'logfile_backups': '10',
+        'loglevel': 'info',
+        'nodaemon': 'false',
+        'minfds': '1024',
+        'minprocs': '200',
+    },
+    'rpcinterface:supervisor': {
+        'supervisor.rpcinterface_factory': 'supervisor.rpcinterface:make_main_rpcinterface'
+    },
+    'supervisorctl': {
+        'serverurl': 'unix:///var/run/supervisor.sock',
+    },
+    'include': {
+        'files': '/etc/supervisord.d/*.ini,/etc/supervisord.d/*.conf,/etc/supervisord.d/*.cfg'
+    },
+}, merge=True) %}
 
 {# If Lithium gets released then below code can be uncommentted because it is more DRY #}
 {#
