@@ -23,8 +23,8 @@
 
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/usr/local/bin/supervisord
-DAEMON_OPTS="-c /etc/supervisord.conf"
+DAEMON={{ config.daemon }}
+DAEMON_OPTS="--configuration {{ config.conf_file }}"
 NAME=supervisord
 DESC=supervisor
 DAEMON_CTL=/usr/local/bin/supervisorctl

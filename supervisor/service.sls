@@ -8,7 +8,10 @@ include:
 supervisor-start-script-systemd:
   file.managed:
     - name: /usr/lib/systemd/system/supervisor.service
-    - source: salt://supervisor/files/supervisor.systemd
+    - source: salt://supervisor/templates/supervisor.systemd
+    - template: jinja
+    - context:
+      config: {{ supervisor }}
     - onlyif:
       - test -d /usr/lib/systemd/system
     - require_in:
@@ -19,7 +22,10 @@ supervisor-start-script-systemd:
 supervisor-start-script-sysvinit:
   file.managed:
     - name: /etc/init.d/supervisor
-    - source: salt://supervisor/files/supervisor.sysvinit
+    - source: salt://supervisor/templates/supervisor.sysvinit
+    - template: jinja
+    - context:
+      config: {{ supervisor }}
     - onlyif:
       - test -d /etc/init.d
     - require_in:
@@ -30,7 +36,10 @@ supervisor-start-script-sysvinit:
 supervisor-start-script-upstart:
   file.managed:
     - name: /etc/init/supervisor.conf
-    - source: salt://supervisor/files/supervisor.upstart
+    - source: salt://supervisor/templates/supervisor.upstart
+    - template: jinja
+    - context:
+      config: {{ supervisor }}
     - onlyif:
       - test -d /etc/init
     - require_in:

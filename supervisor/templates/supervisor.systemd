@@ -1,0 +1,8 @@
+[Unit]
+Description=supervisor
+
+[Service]
+ExecStart={{ config.daemon }} --nodaemon --configuration {{ config.conf_file }}
+
+[Install]
+WantedBy=multi-user.target

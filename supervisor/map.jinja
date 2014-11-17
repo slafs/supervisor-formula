@@ -2,6 +2,7 @@
     'Debian': {
         'pkg': 'supervisor',
         'service': 'supervisor',
+        'daemon': '/usr/local/bin/supervisord',
         'conf_file': '/etc/supervisord.conf',
         'confdir': '/etc',
         'logdir': '/var/log/supervisor',
@@ -11,6 +12,7 @@
     'RedHat': {
         'pkg': 'supervisor',
         'service': 'supervisor',
+        'daemon': '/usr/bin/supervisord',
         'conf_file': '/etc/supervisord.conf',
         'confdir': '/etc',
         'logdir': '/var/log/supervisor',
