@@ -4,7 +4,6 @@ include:
   - supervisor
   - supervisor.conf
 
-# TODO: allow customization inside scripts (service name, config file)
 supervisor-start-script-systemd:
   file.managed:
     - name: /usr/lib/systemd/system/supervisor.service
@@ -24,6 +23,7 @@ supervisor-start-script-sysvinit:
     - name: /etc/init.d/supervisor
     - source: salt://supervisor/templates/supervisor.sysvinit
     - template: jinja
+    - mode: 755
     - context:
       config: {{ supervisor }}
     - onlyif:
